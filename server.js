@@ -97,7 +97,6 @@ app.post('/api/validate-cookie', checkExtensionKey, async (req, res) => {
 // 2. Poll for Admin Cookie Pull
 app.post('/api/cookie-pull/poll', checkExtensionKey, async (req, res) => {
   try {
-    // TODO: Implement admin pull logic
     res.json({ ok: true, pending: null });
   } catch (error) {
     console.error('Error in cookie-pull/poll:', error);
@@ -111,7 +110,7 @@ app.post('/api/get-game-file', checkExtensionKey, async (req, res) => {
     const token = 'simulated_game_token_' + Math.random().toString(36).substr(2, 10);
     res.json({ ok: true, token, fileName: req.body.gameName });
   } catch (error) {
-    res.status(500). json({ ok: false, error: 'Internal server error' });
+    res.status(500).json({ ok: false, error: 'Internal server error' });
   }
 });
 
